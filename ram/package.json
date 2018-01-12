@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --no-delete-output-path",
-    "build": "ng build --no-delete-output-path",
+    "build": "ng build --prod --aot --no-delete-output-path",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
