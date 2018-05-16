@@ -151,7 +151,7 @@ window.solutionMatrix = solutionMatrix;
 		if(solutionMatrix[x1][y1].high>=	large){
 		large = solutionMatrix[x1][y1].high;
 		if(solutionMatrix[x1][y1].path.split('-')[0] - solutionMatrix[x1][y1].path.split('-')[large]>deep)
-		deep = solutionMatrix[x1][y1].path.split('-')[0] - solutionMatrix[x1][y1].path.split('-')[large];
+		
 		p =  solutionMatrix[x1][y1].path
 		}
       }
@@ -159,9 +159,10 @@ window.solutionMatrix = solutionMatrix;
         //console.log(ele);
       });
       });
+	  deep = p.split('-')[0] - p.split('-')[p.split('-').length-1];
 	  $('#path').text(p);
-	  $('#deep').text(deep);
- $('#length').text(large+1); //we took from 0
+	  $('#deep').text(deep+1);//we are taking from zero
+ $('#length').text(large);
     }
 
 
