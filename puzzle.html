@@ -153,7 +153,7 @@ window.solutionMatrix = solutionMatrix;
 		if(parseInt(solutionMatrix[x1][y1].path.split('-')[0]) - parseInt(solutionMatrix[x1][y1].path.split('-')[solutionMatrix[x1][y1].path.split('-').length-2])>deep)
 		
 		p =  solutionMatrix[x1][y1].path;
-		deep = p.split('-')[0] - p.split('-')[p.split('-').length-1];
+		deep = p.split('-')[0] - p.split('-')[p.split('-').length-2];
 		$('#path').text(p);
 		}
     
@@ -161,7 +161,7 @@ window.solutionMatrix = solutionMatrix;
         //console.log(ele);
       });
       });
-	  deep = p.split('-')[0] - p.split('-')[p.split('-').length-1];
+	  deep = p.split('-')[0] - p.split('-')[p.split('-').length-2];
 	  
 	  $('#deep').text(deep);//we are taking from zero
  $('#length').text(large+1);
