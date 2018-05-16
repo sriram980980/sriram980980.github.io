@@ -140,27 +140,29 @@ window.solutionMatrix = solutionMatrix;
 	   }
 
 	   var large = 0;
-	   var p = '';
+	   var p = '0-0-0';
 	   var deep = 0;
       arrayOfHeights.forEach(function (arrayRow, x1){
       solutionMatrix[x1] = solutionMatrix[x1]||[];
       arrayRow.forEach(function (ele, y1){
-      if(!solutionMatrix[x1][y1]){
+      
         
         checkMoves(x1,y1, ele);
-		if(solutionMatrix[x1][y1].high>=	large){
+		if(parseInt(solutionMatrix[x1][y1].high)  >=	parseInt(large)){
 		large = solutionMatrix[x1][y1].high;
-		if(solutionMatrix[x1][y1].path.split('-')[0] - solutionMatrix[x1][y1].path.split('-')[large]>deep)
+		if(parseInt(solutionMatrix[x1][y1].path.split('-')[0]) - parseInt(solutionMatrix[x1][y1].path.split('-')[solutionMatrix[x1][y1].path.split('-').length-2])>deep)
 		
-		p =  solutionMatrix[x1][y1].path
+		p =  solutionMatrix[x1][y1].path;
+		deep = p.split('-')[0] - p.split('-')[p.split('-').length-1];
+		$('#path').text(p);
 		}
-      }
+    
 
         //console.log(ele);
       });
       });
-	  deep = p.split('-')[0] - p.split('-')[p.split('-').length-2];
-	  $('#path').text(p);
+	  deep = p.split('-')[0] - p.split('-')[p.split('-').length-1];
+	  
 	  $('#deep').text(deep);//we are taking from zero
  $('#length').text(large+1);
     }
