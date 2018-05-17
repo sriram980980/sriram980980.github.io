@@ -147,7 +147,7 @@ window.solutionMatrix = solutionMatrix;
       arrayRow.forEach(function (ele, y1){
 	  
         checkMoves(x1,y1, ele);
-		if(parseInt(solutionMatrix[x1][y1].high) >	parseInt(large)){
+		if(parseInt(solutionMatrix[x1][y1].high) >=	parseInt(large)){
 		
 		var e = parseInt(solutionMatrix[x1][y1].path.split('-')[0]) - parseInt(solutionMatrix[x1][y1].path.split('-')[solutionMatrix[x1][y1].path.split('-').length-2]);
 		
