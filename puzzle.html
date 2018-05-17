@@ -75,7 +75,7 @@ window.solutionMatrix = solutionMatrix;
 	 var high = 0;
 	 var path = '';
 	 solutionMatrix[x_] = solutionMatrix[x_]||[];
-	 if(! solutionMatrix[x_][y_]){
+	 if(!solutionMatrix[x_][y_]){
 	  solutionMatrix[x_][y_] = {'ele':ele, 'path':ele,'high':0};
         //check up
 		if(y_!=0&&ele>arrayOfHeights[x_][y_-1]){
@@ -145,26 +145,43 @@ window.solutionMatrix = solutionMatrix;
       arrayOfHeights.forEach(function (arrayRow, x1){
       solutionMatrix[x1] = solutionMatrix[x1]||[];
       arrayRow.forEach(function (ele, y1){
-      
-        
+	  
         checkMoves(x1,y1, ele);
-		if(parseInt(solutionMatrix[x1][y1].high)  >=	parseInt(large)){
-		large = solutionMatrix[x1][y1].high;
-		if(parseInt(solutionMatrix[x1][y1].path.split('-')[0]) - parseInt(solutionMatrix[x1][y1].path.split('-')[solutionMatrix[x1][y1].path.split('-').length-2])>deep)
+		if(parseInt(solutionMatrix[x1][y1].high) >	parseInt(large)){
 		
-		p =  solutionMatrix[x1][y1].path;
-		deep = p.split('-')[0] - p.split('-')[p.split('-').length-2];
-		$('#path').text(p);
+		var e = parseInt(solutionMatrix[x1][y1].path.split('-')[0]) - parseInt(solutionMatrix[x1][y1].path.split('-')[solutionMatrix[x1][y1].path.split('-').length-2]);
+		
+		 if(parseInt(solutionMatrix[x1][y1].high) >	parseInt(large)){
+		large = solutionMatrix[x1][y1].high;
+		p = solutionMatrix[x1][y1].path;
+		}else if(e>deep&&parseInt(solutionMatrix[x1][y1].high) ==	parseInt(large))
+		p=solutionMatrix[x1][y1].path;
 		}
+		
+	//	if( parseInt(solutionMatrix[x1][y1].high)  >	parseInt(large)
+	//	||(parseInt(solutionMatrix[x1][y1].high)  ==	parseInt(large)||(parseInt(solutionMatrix[x1][y1].path.split('-')[0]) - parseInt(solutionMatrix[x1][y1].path.split('-')[solutionMatrix[x1][y1].path.split('-').length-2])>deep))){
+	//
+    //
+	//	large = solutionMatrix[x1][y1].high;
+	//	if(large >=15)
+    // console.log(solutionMatrix[x1][y1])	
+	//	var p2 =  solutionMatrix[x1][y1].path;
+	//	if(parseInt(solutionMatrix[x1][y1].path.split('-')[0]) - parseInt(solutionMatrix[x1][y1].path.split('-')[solutionMatrix[x1][y1].path.split('-').length-2])>deep){
+	//	console.log(solutionMatrix[x1][y1])
+	//	p =  p2;
+	//	deep = p.split('-')[0] - p.split('-')[p.split('-').length-2];
+	//	}
+	//	
+	//	}
     
 
         //console.log(ele);
       });
       });
 	  deep = p.split('-')[0] - p.split('-')[p.split('-').length-2];
-	  
+	  $('#path').text(p);
 	  $('#deep').text(deep);//we are taking from zero
- $('#length').text(large+1);
+		$('#length').text(large+1);
     }
 
 
@@ -193,5 +210,7 @@ $('#geturl').prop('disabled',true);
     $(document).ready(ready);
   })();
 </script>
+	<script src="//script.opentracker.net/?site=www.ramireddy.in"></script>
+
 
 </html>
