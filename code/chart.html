@@ -1,0 +1,144 @@
+<html>
+  <head>
+<style>
+  
+.chart {
+  display: flex;
+  margin: auto;
+  padding: 10px;
+  box-shadow: 0px 0px 2px #000;
+}
+
+
+path.domain {
+  width: 0px;
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.5;
+}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  padding: 10px;
+  width: 80px;
+  height: 30px;
+  margin-top: -52px;
+  margin-left: -102px;
+  color: #4f4;
+  font: 14px sans-serif;        
+  background: #ff12ff;
+  border: 0px;      
+  border-radius: 8px;                 
+}
+
+    </style>
+    
+    <script>
+const margin = {
+  top: 5,
+  right: 30,
+  bottom: 30,
+  left: 50
+}
+
+const width = d3.select(".card").node().getBoundingClientRect().width - margin.right - margin.left;
+const height = document.documentElement.clientWidth <= 768 ? 250 : 500 - margin.top - margin.bottom;
+
+const colors = {
+  bar: '#5AA364',
+  highlight: '#84F092'
+}
+
+const months = ["January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                   ];
+
+function initGraph(ds) {
+  const tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html((d, dateString) => `<strong>$${d[1]} Billion</strong><br><span>${dateString}</span>`);
+  
+  const minDate = new Date(ds[0][0]);
+  const maxDate = new Date(ds[ds.length - 1][0]);
+  
+  const xScale = d3.time.scale().domain([minDate,maxDate]).range([0, width]);
+  
+  const yScale = d3.scale.linear()
+                  .domain([0, d3.max(ds, d => d[1])])
+                  .range([height, 0]);
+  
+  const xAxisGen = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.years, 5);
+  const yAxisGen = d3.svg.axis().scale(yScale).orient('left');
+  
+  const svg = d3.select('.chart')
+                  .attr({
+                    width: width + margin.right + margin.left,
+                    height: height + margin.top + margin.bottom,
+                  })
+                  .append('g')
+                  .attr('transform', `translate(${margin.left}, ${margin.top})`)
+                  .call(tip)
+  
+  const xAxis = svg.append('g').call(xAxisGen)
+                  .attr({
+                    class: 'x axis',
+                    transform: `translate(0, ${height})`
+                  });
+  
+  const yAxis = svg.append('g').call(yAxisGen)
+                  .attr({
+                    class: 'y axis',
+                  });
+
+  const viz = svg.selectAll('.bar')
+    .data(ds)
+    .enter()
+    .append('rect')
+      .attr({
+        class: 'bar',
+        x: d => xScale(new Date(d[0])),
+        y: d => yScale(d[1]),
+        width: Math.ceil(width / ds.length),
+        height: d => height - yScale(d[1]),
+        fill: colors.bar
+      })
+    .on('mouseover', function(d) {
+      let parsed = new Date(d[0]);
+      let dateString = parsed.getFullYear()+ ' - ' + months[parsed.getMonth()];
+    
+      d3.select(this).attr('fill', colors.highlight);
+      tip.show(d, dateString);
+    })
+    .on('mouseout', function(d) { 
+      d3.select(this).attr('fill', colors.bar);
+      tip.hide(d);
+  })
+}
+
+
+d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json', (err, data) => {
+  if (err) throw err;
+  
+  initGraph(data.data);
+});
+    </script>
+ 
+  </head>
+  <body>
+ 
+    <div class="chart"></div>
+ 
+    </body>
+</html>
