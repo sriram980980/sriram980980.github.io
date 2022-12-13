@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<meta name="viewport" content="width=1000px, initial-scale=1.2, maximum-scale=5, minimum-scale=0.2, user-scalable=yes">
+<meta name="viewport" content="width=1000px, initial-scale=0.8, maximum-scale=5, minimum-scale=0.2, user-scalable=yes">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
@@ -98,12 +98,13 @@ angular.module('rentReceipt')
 function rentController ($scope){
 var th= this;
 th.dt = th.dt||new Date('04-04-2022');
-th.pb=th.pb||2;
+th.pb=th.pb||3;
 th.dur = th.dur||'m'
 this.km=()=>{
 
 function generate(k){
 var l = (k=='y')?12:(k=='h')?6:(k=='q')?3:1;
+th.okin = l;
 var s= th.receitps.range;
 var k = new Date(th.dt);
 s.splice(0,s.length);
@@ -160,7 +161,7 @@ generate(th.dur);
     
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Amount</label>
+    <label for="exampleInputPassword1">Amount Per Month</label>
     <input type="text" class="form-control" id="exampleInputPassword1" ng-model="ctrl.receitps.meta.amount" placeholder="Amount">
   </div>
     <div class="form-group">
@@ -241,7 +242,7 @@ generate(th.dur);
       <div class="row">
         <div class="col-md-3">Received from :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.name}}</div>
         <div class="col-md-3">Rental Address :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.address}}</div>
-        <div class="col-md-3">Payment Amount :</div><div class="col-md-8 blank">Rs {{ctrl.receitps.meta.amount}}/-</div>
+        <div class="col-md-3">Payment Amount :</div><div class="col-md-8 blank">Rs {{ctrl.receitps.meta.amount*ctrl.okin}}/- <span ng-if="ctrl.dur!='m'">( Rs {{ctrl.receitps.meta.amount}}/- Per Month)</span></div>
         <div class="col-md-3">Received by :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.landlord}} (PAN: <b>{{ctrl.receitps.meta.pan}}</b>)</div>
       </div>
       <hr>
