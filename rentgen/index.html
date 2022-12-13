@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=1000px, initial-scale=1.2, maximum-scale=2, user-scalable=no">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+
+<style>
+.blank{
+  border-bottom : thin solid black;
+}
+.box{
+  border : thin solid black;
+  padding : 5px;
+}
+@media print {
+   .d-print-none{ display:none}
+    .page-break {page-break-before: always;}
+	
+	.container{
+	width:90%
+	}
+	
+	.b300{
+	min-height:300px;
+	margin-top: 30px;
+	}
+   body {
+      -webkit-print-color-adjust: exact;
+	   margin: 5mm;
+
+   }
+
+
+ 
+}
+.b300{
+	min-height:300px;
+	margin-top: 30px;
+	}
+div {
+  font-size : 12px;
+}
+ @media print {
+  .col-md-1,.col-md-2,.col-md-3,.col-md-4,
+  .col-md-5,.col-md-6,.col-md-7,.col-md-8, 
+  .col-md-9,.col-md-10,.col-md-11,.col-md-12 {
+    float: left;
+  }
+
+  .col-md-1 {
+    width: 8%;
+  }
+  .col-md-2 {
+    width: 16%;
+  }
+  .col-md-3 {
+    width: 25%;
+  }
+  .col-md-4 {
+    width: 33%;
+  }
+  .col-md-5 {
+    width: 42%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-7 {
+    width: 58%;
+  }
+  .col-md-8 {
+    width: 66%;
+  }
+  .col-md-9 {
+    width: 75%;
+  }
+  .col-md-10 {
+    width: 83%;
+  }
+  .col-md-11 {
+    width: 92%;
+  }
+  .col-md-12 {
+    width: 100%;
+  }
+}
+
+</style>
+
+<script>
+angular.module('rentReceipt', [])
+
+angular.module('rentReceipt')
+.controller('rentController', ['$scope',rentController])
+
+function rentController ($scope){
+var th= this;
+th.dt = th.dt||new Date('04-04-2022');
+th.pb=th.pb||2;
+th.dur = th.dur||'m'
+this.km=()=>{
+
+function generate(k){
+var l = (k=='y')?12:(k=='h')?6:(k=='q')?3:1;
+var s= th.receitps.range;
+var k = new Date(th.dt);
+s.splice(0,s.length);
+for(var i=1;i<=(12/l);i++){
+var f = new Date(k);
+f.setMonth(f.getMonth()+l);
+var o = new Date(f);
+o.setDate(o.getDate()-6);
+s.push({
+start: k,
+end: o
+});
+k = f;
+}
+
+return s;
+
+}
+
+
+  th.receitps = {
+  dt:th.dt,
+  ty:th.dur,
+    meta : {
+      name : 'Name Here Example: Ram',
+      amount : '10000',
+      address : 'No ABC, RAm colony, Hyd-50019',
+      landlord : 'Arun Gurram'
+    },
+    range : []
+  }
+  
+generate(th.dur);
+  }
+  
+  this.km();
+  
+  $scope.check=()=>{setTimeout(()=>$scope.$digest())};
+}
+</script>
+</head>
+<body ng-app="rentReceipt" ng-controller="rentController as ctrl">
+<div class="container d-print-none">
+<div class="col-md-12 " >
+<form >
+
+{{ctrl.receitps|json}}
+
+<br/>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Tenant</label>
+    <input class="form-control"  id="exampleInputEmail1" ng-model="ctrl.receitps.meta.name"   placeholder="Tenant">
+    
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Amount</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" ng-model="ctrl.receitps.meta.amount" placeholder="Amount">
+  </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">Landlord</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" ng-model="ctrl.receitps.meta.landlord" placeholder="Amount">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">From: select Finiancial year start</label>
+    <input type="month"  class="form-control" id="exampleInputPassword1" ng-model="ctrl.dt" placeholder="Amount">
+  </div>
+      <div class="form-group">
+    <label for="exampleInputPassword1">Reciepts: </label>
+     Monthly<input type="radio"
+                       name="dur"
+					   ng-click="ctrl.km()"
+                       ng-model='ctrl.dur'
+                       ng-value="'m'" /> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+                  Quarter  
+                <input type="radio"
+                       name="dur"
+                       ng-model='ctrl.dur'
+					   ng-click="ctrl.km()"
+                       ng-value="'q'" /> 
+					   &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+					   
+					   Half Yearly :
+                <input type="radio"
+                       name="dur" ng-click="ctrl.km()"
+                       ng-model='ctrl.dur'
+                       ng-value="'h'" />
+					   &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+					   Yearly :
+                <input type="radio"
+                       name="dur"
+					  
+                       ng-model='ctrl.dur'
+                       ng-value="'y'" />
+					   <input type=button value="GO" ng-click="ctrl.km()"/>
+  </div>
+  
+    <div class="form-group">
+    <label for="exampleInputPassword1">Print Reciepts Per Page</label>
+    <input type="range" class="form-control" min=1 max=3 id="exampleInputPassword1" ng-model="ctrl.pb" placeholder="Amount">
+  </div>
+</form>
+</div>
+</div>
+  <div class="container">
+  <!--   each receipt -->
+  <!--   header -->
+    <div class="box  b300" ng-class="{'page-break':!($index % ctrl.pb)}" ng-repeat="receipt in ctrl.receitps.range">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Rent Receipt</h3>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-2">No.</div>
+            <div class="col-md-8 blank">{{'000' + ($index+1)}}</div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">Date.</div>
+            <div class="col-md-8 blank">{{receipt.start | date}}</div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">Month.</div>
+            <div class="col-md-8 blank">{{receipt.start | date : 'MMMM yy'}} <span ng-if="ctrl.dur!='m'">- {{receipt.end | date : 'MMMM yy'}}</span></div>
+            <div class="col-md-2"></div>
+          </div>
+        </div>
+      </div>
+    <!--   body -->
+      <hr>
+      <div class="row">
+        <div class="col-md-3">Received from :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.name}}</div>
+        <div class="col-md-3">Rental Address :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.address}}</div>
+        <div class="col-md-3">Payment Amount :</div><div class="col-md-8 blank">Rs {{ctrl.receitps.meta.amount}}/-</div>
+        <div class="col-md-3">Received by :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.landlord}}</div>
+      </div>
+      <hr>
+      <div class="row">
+    </div>
+      <div class="col-md-4 box">
+        <h6>Signature : <h6>
+        <img src="" alt="" />
+      </div>
+    </div>
+  </div>
+</body>
+<div>
+
+
+</div>
+</body>
+</html>
