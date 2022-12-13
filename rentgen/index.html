@@ -129,6 +129,7 @@ return s;
   ty:th.dur,
     meta : {
       name : 'Name Here Example: Ram',
+	     pan : 'CXYPP9000ABC',
       amount : '10000',
       address : 'No ABC, RAm colony, Hyd-50019',
       landlord : 'Arun Gurram'
@@ -164,12 +165,16 @@ generate(th.dur);
   </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Landlord</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" ng-model="ctrl.receitps.meta.landlord" placeholder="Amount">
+    <input type="text" class="form-control" id="exampleInputPassword1" ng-model="ctrl.receitps.meta.landlord" placeholder="Landlord">
+  </div>
+	 <div class="form-group">
+    <label for="exampleInputPassword1">PAN</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" ng-model="ctrl.receitps.meta.pan" placeholder="PAN">
   </div>
 
   <div class="form-group">
     <label for="exampleInputPassword1">From: select Finiancial year start</label>
-    <input type="month"  class="form-control" id="exampleInputPassword1" ng-model="ctrl.dt" placeholder="Amount">
+    <input type="month"  class="form-control" id="exampleInputPassword1" ng-model="ctrl.dt" placeholder="Date">
   </div>
       <div class="form-group">
     <label for="exampleInputPassword1">Reciepts: </label>
@@ -237,7 +242,7 @@ generate(th.dur);
         <div class="col-md-3">Received from :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.name}}</div>
         <div class="col-md-3">Rental Address :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.address}}</div>
         <div class="col-md-3">Payment Amount :</div><div class="col-md-8 blank">Rs {{ctrl.receitps.meta.amount}}/-</div>
-        <div class="col-md-3">Received by :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.landlord}}</div>
+        <div class="col-md-3">Received by :</div><div class="col-md-8 blank">{{ctrl.receitps.meta.landlord}} (PAN: <b>{{ctrl.receitps.meta.pan}}</b>)</div>
       </div>
       <hr>
       <div class="row">
