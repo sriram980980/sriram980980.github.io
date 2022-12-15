@@ -124,16 +124,16 @@ return s;
 
 }
 
-
+ th.receitps= th.receitps||{};
   th.receitps = {
   dt:th.dt,
   ty:th.dur,
     meta : {
-      name : 'Name Here Example: Ram',
-	     pan : 'CXYPP9000ABC',
-      amount : 10000,
-      address : 'No ABC, RAm colony, Hyd-50019',
-      landlord : 'Arun Gurram'
+      name : th.receitps.meta.name||  'Name Here Example: Ram',
+	     pan : th.receitps.meta.pan|| 'CXYPP9000ABC',
+      amount :  th.receitps.meta.amount||10000,
+      address :  th.receitps.meta.address||'No ABC, RAm colony, Hyd-50019',
+      landlord : th.receitps.meta.landlord|| 'Arun Gurram'
     },
     range : []
   }
