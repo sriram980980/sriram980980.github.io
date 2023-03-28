@@ -1,0 +1,23 @@
+{
+
+    "keys": [{
+
+        "kty": "EC",
+
+        "crv": "P-256",
+
+        "kid":"bc845f92-cd38-11ed-afa1-0242ac120002",
+
+        "use":"sig",
+
+        "x": "yJm59UivclIXkJMkwDomvgw7MIprHvESdIVuYBEi1_A",
+
+        "y": "-RY7BNzq4zSAQ1VEt9rWscB8OIjB8O6lfndX_wjJHvE",
+
+        "alg": "ES256",
+
+        "x5c": ["MIIBjzCCATWgAwIBAgIUX11ulFsUwjCD4JVgYvZMMGSM3GcwCgYIKoZIzj0EAwIwHTEbMBkGA1UEAwwSY2xpZW50LmV4YW1wbGUuY29tMB4XDTIzMDMyODAzNTkzMloXDTI1MTIyMjAzNTkzMlowHTEbMBkGA1UEAwwSY2xpZW50LmV4YW1wbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyJm59UivclIXkJMkwDomvgw7MIprHvESdIVuYBEi1/D5FjsE3OrjNIBDVUS32taxwHw4iMHw7qV+d1f/CMke8aNTMFEwHQYDVR0OBBYEFGic0KKMwrf0ycJuoBxGGE4unmRPMB8GA1UdIwQYMBaAFGic0KKMwrf0ycJuoBxGGE4unmRPMA8GA1UdEwEB/wQFMAMBAf8wCgYIKoZIzj0EAwIDSAAwRQIgM9vjhH5jddVEQT40KOt67Z02jTBnFRaZfDpWQ0oOaIMCIQCXXb3JVjVpy1Xdb1GvaDpac1pfflnF13lISurPrTaVWg=="]
+
+    }]
+
+}
