@@ -121,14 +121,6 @@
     "isNew": true
   },
   {
-    "name": "Digital Signature",
-    "description": "Draw and download digital signatures as PNG",
-    "icon": "fas fa-signature",
-    "category": "dev",
-    "route": "/digital-signature",
-    "isNew": true
-  },
-  {
     "name": "Timezone Converter",
     "description": "Convert between different timezones",
     "icon": "fas fa-globe",
@@ -153,21 +145,29 @@
     "name": "Rent Receipt Generator",
     "description": "Generate professional rent receipts",
     "icon": "fas fa-receipt",
-    "category": "real-estate",
+    "category": "productivity",
     "route": "/rent-receipt"
   },
   {
     "name": "EMI Calculator",
-    "description": "Calculate loan EMIs",
+    "description": "Calculate loan EMIs and payment schedules",
     "icon": "fas fa-calculator",
-    "category": "real-estate",
+    "category": "productivity",
     "route": "/emi-calculator"
   },
   {
     "name": "Property Tax Calculator",
-    "description": "Calculate property tax",
+    "description": "Calculate property tax and assessments",
     "icon": "fas fa-percent",
-    "category": "real-estate",
+    "category": "productivity",
     "route": "/property-tax-calculator"
+  },
+  {
+    "name": "Digital Signature",
+    "description": "Create and download digital signatures",
+    "icon": "fas fa-signature",
+    "category": "productivity",
+    "route": "/digital-signature",
+    "isNew": true
   }
 ]
