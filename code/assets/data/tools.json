@@ -113,6 +113,14 @@
     "isNew": true
   },
   {
+    "name": "Color Utils",
+    "description": "Color format converters and palette generator",
+    "icon": "fas fa-palette",
+    "category": "dev",
+    "route": "/color-utils",
+    "isNew": true
+  },
+  {
     "name": "Timezone Converter",
     "description": "Convert between different timezones",
     "icon": "fas fa-globe",
