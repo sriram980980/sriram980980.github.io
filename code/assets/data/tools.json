@@ -169,5 +169,13 @@
     "category": "dev",
     "route": "/kafka-designer",
     "isNew": true
+  },
+  {
+    "name": "Payload to POJO",
+    "description": "Convert JSON/XML payload to Java POJOs with Jackson annotations",
+    "icon": "fas fa-code",
+    "category": "dev",
+    "route": "/payload-to-pojo",
+    "isNew": true
   }
 ]
