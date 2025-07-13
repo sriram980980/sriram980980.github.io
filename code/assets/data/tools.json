@@ -105,6 +105,14 @@
     "isNew": true
   },
   {
+    "name": "Text Utils",
+    "description": "Text case converters, slug generator, and regex tester",
+    "icon": "fas fa-text-width",
+    "category": "dev",
+    "route": "/text-utils",
+    "isNew": true
+  },
+  {
     "name": "Timezone Converter",
     "description": "Convert between different timezones",
     "icon": "fas fa-globe",
