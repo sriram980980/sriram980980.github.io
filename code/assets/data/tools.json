@@ -121,6 +121,14 @@
     "isNew": true
   },
   {
+    "name": "Digital Signature",
+    "description": "Draw and download digital signatures as PNG",
+    "icon": "fas fa-signature",
+    "category": "dev",
+    "route": "/digital-signature",
+    "isNew": true
+  },
+  {
     "name": "Timezone Converter",
     "description": "Convert between different timezones",
     "icon": "fas fa-globe",
