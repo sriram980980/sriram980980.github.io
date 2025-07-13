@@ -29,11 +29,11 @@
     "route": "/timezone-converter"
   },
   {
-    "name": "Ovulation Tracker",
-    "description": "Track fertility and ovulation",
-    "icon": "fas fa-heart",
+    "name": "Digital Signature",
+    "description": "Create and download digital signatures",
+    "icon": "fas fa-signature",
     "category": "most-used",
-    "route": "/ovulation-tracker",
+    "route": "/digital-signature",
     "isNew": true
   },
   {
@@ -161,13 +161,5 @@
     "icon": "fas fa-percent",
     "category": "productivity",
     "route": "/property-tax-calculator"
-  },
-  {
-    "name": "Digital Signature",
-    "description": "Create and download digital signatures",
-    "icon": "fas fa-signature",
-    "category": "productivity",
-    "route": "/digital-signature",
-    "isNew": true
   }
 ]
