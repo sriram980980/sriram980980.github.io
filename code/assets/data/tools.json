@@ -1,0 +1,149 @@
+[
+  {
+    "name": "JSON Formatter",
+    "description": "Format and validate JSON data",
+    "icon": "fab fa-js-square",
+    "category": "most-used",
+    "route": "/json-formatter"
+  },
+  {
+    "name": "BMI Calculator",
+    "description": "Calculate BMI with WHO standards",
+    "icon": "fas fa-weight",
+    "category": "most-used",
+    "route": "/bmi-calculator",
+    "isNew": true
+  },
+  {
+    "name": "Base64 Encoder",
+    "description": "Encode/decode Base64 strings",
+    "icon": "fas fa-lock",
+    "category": "most-used",
+    "route": "/base64-encoder"
+  },
+  {
+    "name": "Timezone Converter",
+    "description": "Convert between timezones",
+    "icon": "fas fa-globe",
+    "category": "most-used",
+    "route": "/timezone-converter"
+  },
+  {
+    "name": "Ovulation Tracker",
+    "description": "Track fertility and ovulation",
+    "icon": "fas fa-heart",
+    "category": "most-used",
+    "route": "/ovulation-tracker",
+    "isNew": true
+  },
+  {
+    "name": "BMI Calculator",
+    "description": "Calculate Body Mass Index with WHO standards",
+    "icon": "fas fa-weight",
+    "category": "health",
+    "route": "/bmi-calculator",
+    "isNew": true
+  },
+  {
+    "name": "WHO Growth Charts",
+    "description": "Child growth charts based on WHO standards",
+    "icon": "fas fa-child",
+    "category": "health",
+    "route": "/who-growth-charts",
+    "isNew": true
+  },
+  {
+    "name": "Blood Pressure Guide",
+    "description": "Blood pressure ranges and health information",
+    "icon": "fas fa-heartbeat",
+    "category": "health",
+    "route": "/blood-pressure",
+    "isNew": true
+  },
+  {
+    "name": "Ovulation Tracker",
+    "description": "Track menstrual cycle and predict fertile days",
+    "icon": "fas fa-heart",
+    "category": "health",
+    "route": "/ovulation-tracker",
+    "isNew": true
+  },
+  {
+    "name": "JSON Formatter",
+    "description": "Format, validate and beautify JSON",
+    "icon": "fab fa-js-square",
+    "category": "dev",
+    "route": "/json-formatter"
+  },
+  {
+    "name": "JSON Path Extractor",
+    "description": "Extract data using JSONPath expressions",
+    "icon": "fas fa-search",
+    "category": "dev",
+    "route": "/json-path"
+  },
+  {
+    "name": "Base64 Encoder",
+    "description": "Encode/decode text to Base64",
+    "icon": "fas fa-lock",
+    "category": "dev",
+    "route": "/base64-encoder"
+  },
+  {
+    "name": "Base64 Image",
+    "description": "Convert images to/from Base64",
+    "icon": "fas fa-image",
+    "category": "dev",
+    "route": "/base64-image"
+  },
+  {
+    "name": "Text Diff Tool",
+    "description": "Compare text documents and highlight differences",
+    "icon": "fas fa-code-branch",
+    "category": "dev",
+    "route": "/text-diff",
+    "isNew": true
+  },
+  {
+    "name": "Timezone Converter",
+    "description": "Convert between different timezones",
+    "icon": "fas fa-globe",
+    "category": "date",
+    "route": "/timezone-converter"
+  },
+  {
+    "name": "Date Calculator",
+    "description": "Calculate differences between dates",
+    "icon": "fas fa-calendar-plus",
+    "category": "date",
+    "route": "/date-calculator"
+  },
+  {
+    "name": "Timestamp Converter",
+    "description": "Convert Unix timestamps to dates",
+    "icon": "fas fa-clock",
+    "category": "date",
+    "route": "/timestamp-converter"
+  },
+  {
+    "name": "Rent Receipt Generator",
+    "description": "Generate professional rent receipts",
+    "icon": "fas fa-receipt",
+    "category": "real-estate",
+    "route": "/rent-receipt"
+  },
+  {
+    "name": "EMI Calculator",
+    "description": "Calculate loan EMIs",
+    "icon": "fas fa-calculator",
+    "category": "real-estate",
+    "route": "/emi-calculator"
+  },
+  {
+    "name": "Property Tax Calculator",
+    "description": "Calculate property tax",
+    "icon": "fas fa-percent",
+    "category": "real-estate",
+    "route": "/property-tax-calculator"
+  }
+]
