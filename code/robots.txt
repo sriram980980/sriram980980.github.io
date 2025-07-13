@@ -1,0 +1,113 @@
+# robots.txt for Ram's Tools - ramireddy.in
+# This file tells search engines which pages they can and cannot crawl
+
+User-agent: *
+Allow: /
+
+# Allow all tools and utilities
+Allow: /tools/
+Allow: /bmi-calculator
+Allow: /json-formatter
+Allow: /json-path
+Allow: /base64-encoder
+Allow: /base64-image
+Allow: /timezone-converter
+Allow: /timestamp-converter
+Allow: /blood-pressure
+Allow: /who-growth-charts
+Allow: /ovulation-tracker
+Allow: /emi-calculator
+Allow: /text-diff
+Allow: /text-utils
+Allow: /color-utils
+Allow: /date-calculator
+Allow: /rent-receipt
+Allow: /property-tax-calculator
+Allow: /digital-signature
+
+# Allow important assets
+Allow: /assets/
+Allow: /favicon.ico
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+
+# Disallow admin or private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /cache/
+
+# Disallow search and form processing
+Disallow: /search
+Disallow: /search/
+Disallow: /*?search=
+Disallow: /*?q=
+
+# Disallow certain file types
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+Disallow: /*.xls$
+Disallow: /*.xlsx$
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://www.ramireddy.in/sitemap.xml
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
