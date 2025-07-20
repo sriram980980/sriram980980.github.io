@@ -177,5 +177,13 @@
     "category": "dev",
     "route": "/payload-to-pojo",
     "isNew": true
+  },
+  {
+    "name": "Database Selector",
+    "description": "Compare and select databases with weighted scoring and recommendations",
+    "icon": "fas fa-database",
+    "category": "dev",
+    "route": "/database-selector",
+    "isNew": true
   }
 ]

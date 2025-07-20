@@ -1,0 +1,828 @@
+{
+  "criteria": [
+    {
+      "id": "cap_theorem",
+      "name": "CAP Theorem",
+      "category": "Architecture",
+      "description": "Consistency, Availability, Partition tolerance - choose two",
+      "weight": 8,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "CAP theorem not important for single-node systems",
+        "4-6": "Moderate importance for distributed systems",
+        "7-8": "Important for multi-region deployments",
+        "9-10": "Critical for global-scale distributed systems"
+      }
+    },
+    {
+      "id": "consistency_model",
+      "name": "Consistency Model",
+      "category": "Architecture", 
+      "description": "How the database handles data consistency across nodes",
+      "weight": 9,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "Consistency not critical for your use case",
+        "4-6": "Some consistency requirements",
+        "7-8": "Strong consistency preferred",
+        "9-10": "Strict consistency absolutely required"
+      }
+    },
+    {
+      "id": "acid_support",
+      "name": "ACID Support",
+      "category": "Transactions",
+      "description": "Atomicity, Consistency, Isolation, Durability properties",
+      "weight": 8,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "ACID not needed (analytics, caching)",
+        "4-6": "Some transactional guarantees desired",
+        "7-8": "ACID important for data integrity",
+        "9-10": "Full ACID compliance mandatory (financial, critical data)"
+      }
+    },
+    {
+      "id": "data_model",
+      "name": "Data Model",
+      "category": "Structure",
+      "description": "How data is organized and stored",
+      "weight": 9,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "Any data model acceptable",
+        "4-6": "Preference for specific model but flexible",
+        "7-8": "Strong preference for relational/document/graph",
+        "9-10": "Must match exact data structure requirements"
+      }
+    },
+    {
+      "id": "distributed",
+      "name": "Distributed Architecture",
+      "category": "Architecture",
+      "description": "Native support for distributed deployments",
+      "weight": 7,
+      "type": "boolean",
+      "weight_explanations": {
+        "1-3": "Single node deployment sufficient",
+        "4-6": "May need distribution in future",
+        "7-8": "Distribution important for scalability",
+        "9-10": "Must be distributed from day one"
+      }
+    },
+    {
+      "id": "replication",
+      "name": "Replication Support",
+      "category": "Architecture",
+      "description": "Data replication capabilities",
+      "weight": 7,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "No replication needed",
+        "4-6": "Basic backup/read replicas sufficient",
+        "7-8": "Multi-master replication preferred",
+        "9-10": "Advanced replication with conflict resolution required"
+      }
+    },
+    {
+      "id": "sharding",
+      "name": "Sharding Support",
+      "category": "Scalability",
+      "description": "Horizontal partitioning capabilities",
+      "weight": 6,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "Vertical scaling sufficient",
+        "4-6": "May need sharding for growth",
+        "7-8": "Sharding important for large datasets",
+        "9-10": "Auto-sharding absolutely required"
+      }
+    },
+    {
+      "id": "license",
+      "name": "License Type",
+      "category": "Cost",
+      "description": "Licensing model and cost structure",
+      "weight": 5,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "Any license acceptable, budget available",
+        "4-6": "Prefer open source but can pay if needed",
+        "7-8": "Strong preference for open source",
+        "9-10": "Open source only, no commercial licenses"
+      }
+    },
+    {
+      "id": "query_language",
+      "name": "Query Language",
+      "category": "Development",
+      "description": "Primary query interface",
+      "weight": 6,
+      "type": "categorical",
+      "weight_explanations": {
+        "1-3": "Any query interface acceptable",
+        "4-6": "Preference for SQL or familiar syntax",
+        "7-8": "Must support standard SQL",
+        "9-10": "Advanced SQL features and compatibility required"
+      }
+    },
+    {
+      "id": "performance_scale",
+      "name": "Performance Scale",
+      "category": "Performance",
+      "description": "Expected performance characteristics",
+      "weight": 8,
+      "type": "rating",
+      "weight_explanations": {
+        "1-3": "Basic performance acceptable",
+        "4-6": "Good performance desired",
+        "7-8": "High performance required",
+        "9-10": "Ultra-high performance critical (sub-millisecond)"
+      }
+    },
+    {
+      "id": "scalability",
+      "name": "Scalability",
+      "category": "Performance",
+      "description": "Ability to handle growing data and traffic",
+      "weight": 7,
+      "type": "rating",
+      "weight_explanations": {
+        "1-3": "Current scale sufficient",
+        "4-6": "Moderate growth expected",
+        "7-8": "Significant scaling requirements",
+        "9-10": "Must scale to internet-scale volumes"
+      }
+    },
+    {
+      "id": "operational_complexity",
+      "name": "Operational Complexity",
+      "category": "Operations",
+      "description": "Ease of deployment, maintenance, and monitoring",
+      "weight": 6,
+      "type": "rating",
+      "weight_explanations": {
+        "1-3": "Can handle complex operations",
+        "4-6": "Moderate operational complexity acceptable",
+        "7-8": "Prefer simple operations",
+        "9-10": "Must be fully managed or extremely simple"
+      }
+    },
+    {
+      "id": "community_support",
+      "name": "Community & Support",
+      "category": "Ecosystem",
+      "description": "Available community, documentation, and professional support",
+      "weight": 5,
+      "type": "rating",
+      "weight_explanations": {
+        "1-3": "Limited support acceptable",
+        "4-6": "Good documentation and community helpful",
+        "7-8": "Strong community and support important",
+        "9-10": "Enterprise support and large community required"
+      }
+    },
+    {
+      "id": "security_features",
+      "name": "Security Features",
+      "category": "Security",
+      "description": "Built-in security capabilities and compliance features",
+      "weight": 7,
+      "type": "rating",
+      "weight_explanations": {
+        "1-3": "Basic security sufficient",
+        "4-6": "Standard security features needed",
+        "7-8": "Advanced security important",
+        "9-10": "Enterprise-grade security with compliance required"
+      }
+    },
+    {
+      "id": "backup_recovery",
+      "name": "Backup & Recovery",
+      "category": "Operations",
+      "description": "Data backup and disaster recovery capabilities",
+      "weight": 7,
+      "type": "rating",
+      "weight_explanations": {
+        "1-3": "Basic backup sufficient",
+        "4-6": "Good backup and recovery tools needed",
+        "7-8": "Advanced backup with point-in-time recovery",
+        "9-10": "Enterprise backup with zero data loss guarantee"
+      }
+    },
+    {
+      "id": "integration_ecosystem",
+      "name": "Integration Ecosystem",
+      "category": "Ecosystem",
+      "description": "Available drivers, tools, and third-party integrations",
+      "weight": 6,
+      "type": "rating",
+      "weight_explanations": {
+        "1-3": "Basic integrations sufficient",
+        "4-6": "Good ecosystem helpful",
+        "7-8": "Rich ecosystem important",
+        "9-10": "Comprehensive ecosystem with all major tools required"
+      }
+    }
+  ],
+  "databases": [
+    {
+      "id": "mysql",
+      "name": "MySQL",
+      "description": "Popular open-source relational database",
+      "category": "Relational",
+      "vendor": "Oracle",
+      "official_url": "https://www.mysql.com/",
+      "github_url": "https://github.com/mysql/mysql-server",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Relational",
+        "distributed": false,
+        "replication": "Master-Slave",
+        "sharding": "Manual",
+        "license": "Open Source (GPL) / Commercial",
+        "query_language": "SQL",
+        "performance_scale": 7,
+        "scalability": 6,
+        "operational_complexity": 7,
+        "community_support": 9,
+        "security_features": 7,
+        "backup_recovery": 8,
+        "integration_ecosystem": 9
+      },
+      "pros": ["Mature ecosystem", "Wide adoption", "Good documentation"],
+      "cons": ["Limited horizontal scaling", "Single point of failure"],
+      "use_cases": ["Web applications", "E-commerce", "Content management"]
+    },
+    {
+      "id": "postgresql",
+      "name": "PostgreSQL", 
+      "description": "Advanced open-source relational database",
+      "category": "Relational",
+      "vendor": "PostgreSQL Global Development Group",
+      "official_url": "https://www.postgresql.org/",
+      "github_url": "https://github.com/postgres/postgres",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID", 
+        "data_model": "Relational + JSON",
+        "distributed": false,
+        "replication": "Master-Slave/Streaming",
+        "sharding": "Extensions Available",
+        "license": "Open Source (PostgreSQL)",
+        "query_language": "SQL + Extensions",
+        "performance_scale": 8,
+        "scalability": 7,
+        "operational_complexity": 5,
+        "community_support": 9,
+        "security_features": 8,
+        "backup_recovery": 9,
+        "integration_ecosystem": 9
+      },
+      "pros": ["Advanced features", "JSON support", "Extensible"],
+      "cons": ["Complex configuration", "Memory intensive"],
+      "use_cases": ["Analytics", "Geospatial data", "Complex queries"]
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "description": "Document-oriented NoSQL database",
+      "category": "NoSQL Document",
+      "vendor": "MongoDB Inc.",
+      "official_url": "https://www.mongodb.com/",
+      "github_url": "https://github.com/mongodb/mongo",
+      "criteria": {
+        "cap_theorem": "CP",
+        "consistency_model": "Eventual/Tunable",
+        "acid_support": "Limited ACID",
+        "data_model": "Document (BSON)",
+        "distributed": true,
+        "replication": "Replica Sets",
+        "sharding": "Built-in",
+        "license": "Open Source (SSPL) / Commercial",
+        "query_language": "MongoDB Query Language",
+        "performance_scale": 8,
+        "scalability": 9,
+        "operational_complexity": 6,
+        "community_support": 8,
+        "security_features": 7,
+        "backup_recovery": 7,
+        "integration_ecosystem": 8
+      },
+      "pros": ["Flexible schema", "Horizontal scaling", "Rich queries"],
+      "cons": ["Memory usage", "Licensing concerns", "Eventual consistency"],
+      "use_cases": ["Content management", "Real-time analytics", "IoT data"]
+    },
+    {
+      "id": "cassandra",
+      "name": "Apache Cassandra",
+      "description": "Wide-column distributed database",
+      "category": "NoSQL Wide-Column", 
+      "vendor": "Apache Software Foundation",
+      "official_url": "https://cassandra.apache.org/",
+      "github_url": "https://github.com/apache/cassandra",
+      "criteria": {
+        "cap_theorem": "AP",
+        "consistency_model": "Eventual/Tunable",
+        "acid_support": "No ACID",
+        "data_model": "Wide-Column",
+        "distributed": true,
+        "replication": "Multi-Master",
+        "sharding": "Automatic",
+        "license": "Open Source (Apache 2.0)",
+        "query_language": "CQL (Cassandra Query Language)",
+        "performance_scale": 9,
+        "scalability": 10,
+        "operational_complexity": 4,
+        "community_support": 7,
+        "security_features": 6,
+        "backup_recovery": 6,
+        "integration_ecosystem": 7
+      },
+      "pros": ["High availability", "Linear scalability", "No single point of failure"],
+      "cons": ["Complex data modeling", "Eventual consistency", "Learning curve"],
+      "use_cases": ["Time-series data", "IoT telemetry", "High-volume writes"]
+    },
+    {
+      "id": "redis",
+      "name": "Redis",
+      "description": "In-memory key-value store",
+      "category": "NoSQL Key-Value",
+      "vendor": "Redis Ltd.",
+      "official_url": "https://redis.io/",
+      "github_url": "https://github.com/redis/redis",
+      "criteria": {
+        "cap_theorem": "CP",
+        "consistency_model": "Strong",
+        "acid_support": "Limited",
+        "data_model": "Key-Value + Data Structures",
+        "distributed": true,
+        "replication": "Master-Slave",
+        "sharding": "Redis Cluster",
+        "license": "Open Source (BSD) / Commercial",
+        "query_language": "Redis Commands",
+        "performance_scale": 10,
+        "scalability": 8,
+        "operational_complexity": 7,
+        "community_support": 8,
+        "security_features": 6,
+        "backup_recovery": 6,
+        "integration_ecosystem": 9
+      },
+      "pros": ["Extremely fast", "Rich data types", "Pub/Sub support"],
+      "cons": ["Memory-only", "Limited query capabilities", "Persistence complexity"],
+      "use_cases": ["Caching", "Session storage", "Real-time analytics"]
+    },
+    {
+      "id": "dynamodb",
+      "name": "Amazon DynamoDB",
+      "description": "Managed NoSQL database service",
+      "category": "NoSQL Key-Value",
+      "vendor": "Amazon Web Services",
+      "official_url": "https://aws.amazon.com/dynamodb/",
+      "github_url": "",
+      "criteria": {
+        "cap_theorem": "AP",
+        "consistency_model": "Eventual/Strong",
+        "acid_support": "Limited ACID",
+        "data_model": "Key-Value + Document",
+        "distributed": true,
+        "replication": "Multi-Master",
+        "sharding": "Automatic",
+        "license": "Commercial (Pay-per-use)",
+        "query_language": "DynamoDB API",
+        "performance_scale": 9,
+        "scalability": 10,
+        "operational_complexity": 9,
+        "community_support": 7,
+        "security_features": 9,
+        "backup_recovery": 9,
+        "integration_ecosystem": 8
+      },
+      "pros": ["Fully managed", "Auto-scaling", "High availability"],
+      "cons": ["Vendor lock-in", "Limited query flexibility", "Cost at scale"],
+      "use_cases": ["Serverless applications", "Gaming", "Mobile backends"]
+    },
+    {
+      "id": "elasticsearch",
+      "name": "Elasticsearch",
+      "description": "Distributed search and analytics engine",
+      "category": "Search Engine",
+      "vendor": "Elastic N.V.",
+      "official_url": "https://www.elastic.co/elasticsearch/",
+      "github_url": "https://github.com/elastic/elasticsearch",
+      "criteria": {
+        "cap_theorem": "AP",
+        "consistency_model": "Eventual",
+        "acid_support": "No ACID",
+        "data_model": "Document (JSON)",
+        "distributed": true,
+        "replication": "Master-Slave",
+        "sharding": "Built-in",
+        "license": "Open Source (Apache 2.0) / Commercial",
+        "query_language": "Query DSL",
+        "performance_scale": 8,
+        "scalability": 9,
+        "operational_complexity": 5,
+        "community_support": 8,
+        "security_features": 7,
+        "backup_recovery": 7,
+        "integration_ecosystem": 9
+      },
+      "pros": ["Full-text search", "Real-time analytics", "Powerful aggregations"],
+      "cons": ["Complex operations", "Memory intensive", "Not ACID"],
+      "use_cases": ["Search applications", "Log analytics", "Monitoring"]
+    },
+    {
+      "id": "neo4j",
+      "name": "Neo4j",
+      "description": "Graph database for connected data",
+      "category": "Graph",
+      "vendor": "Neo4j, Inc.",
+      "official_url": "https://neo4j.com/",
+      "github_url": "https://github.com/neo4j/neo4j",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Graph (Nodes & Relationships)",
+        "distributed": true,
+        "replication": "Master-Slave",
+        "sharding": "Enterprise Edition",
+        "license": "Open Source (GPL) / Commercial",
+        "query_language": "Cypher",
+        "performance_scale": 7,
+        "scalability": 6,
+        "operational_complexity": 6,
+        "community_support": 7,
+        "security_features": 7,
+        "backup_recovery": 7,
+        "integration_ecosystem": 6
+      },
+      "pros": ["Relationship queries", "ACID compliance", "Intuitive modeling"],
+      "cons": ["Learning curve", "Memory requirements", "Limited ecosystem"],
+      "use_cases": ["Social networks", "Recommendation engines", "Fraud detection"]
+    },
+    {
+      "id": "oracle",
+      "name": "Oracle Database",
+      "description": "Enterprise-grade relational database with advanced features",
+      "category": "Relational",
+      "vendor": "Oracle Corporation",
+      "official_url": "https://www.oracle.com/database/",
+      "github_url": "",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Relational + JSON + XML",
+        "distributed": true,
+        "replication": "Multi-Master",
+        "sharding": "Built-in (RAC)",
+        "license": "Commercial",
+        "query_language": "SQL + PL/SQL",
+        "performance_scale": 9,
+        "scalability": 9,
+        "operational_complexity": 4,
+        "community_support": 8,
+        "security_features": 10,
+        "backup_recovery": 10,
+        "integration_ecosystem": 9
+      },
+      "pros": ["Enterprise features", "High performance", "Advanced security", "Comprehensive tooling"],
+      "cons": ["Very expensive", "Complex administration", "Vendor lock-in"],
+      "use_cases": ["Enterprise applications", "Financial systems", "Large-scale OLTP"]
+    },
+    {
+      "id": "mssql",
+      "name": "Microsoft SQL Server",
+      "description": "Microsoft's enterprise relational database system",
+      "category": "Relational",
+      "vendor": "Microsoft",
+      "official_url": "https://www.microsoft.com/en-us/sql-server/",
+      "github_url": "",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Relational + JSON + XML",
+        "distributed": true,
+        "replication": "Master-Slave",
+        "sharding": "Manual (Federation)",
+        "license": "Commercial",
+        "query_language": "T-SQL",
+        "performance_scale": 8,
+        "scalability": 8,
+        "operational_complexity": 5,
+        "community_support": 8,
+        "security_features": 9,
+        "backup_recovery": 9,
+        "integration_ecosystem": 9
+      },
+      "pros": ["Windows integration", "BI tools", "Good tooling", "Azure cloud integration"],
+      "cons": ["Windows-centric", "Expensive licensing", "Limited cross-platform"],
+      "use_cases": ["Windows environments", "Business intelligence", "Enterprise applications"]
+    },
+    {
+      "id": "ibm_db2",
+      "name": "IBM Db2",
+      "description": "IBM's enterprise relational database",
+      "category": "Relational",
+      "vendor": "IBM",
+      "official_url": "https://www.ibm.com/products/db2-database",
+      "github_url": "",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Relational + JSON + XML",
+        "distributed": true,
+        "replication": "Multi-Master",
+        "sharding": "Built-in (pureScale)",
+        "license": "Commercial",
+        "query_language": "SQL",
+        "performance_scale": 8,
+        "scalability": 8,
+        "operational_complexity": 4,
+        "community_support": 6,
+        "security_features": 9,
+        "backup_recovery": 9,
+        "integration_ecosystem": 7
+      },
+      "pros": ["Mainframe integration", "High availability", "Advanced analytics"],
+      "cons": ["Expensive", "Complex", "Declining market share"],
+      "use_cases": ["Mainframe environments", "Enterprise systems", "Analytics"]
+    },
+    {
+      "id": "mariadb",
+      "name": "MariaDB",
+      "description": "Open-source fork of MySQL with enhanced features",
+      "category": "Relational",
+      "vendor": "MariaDB Foundation",
+      "official_url": "https://mariadb.org/",
+      "github_url": "https://github.com/MariaDB/server",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Relational + JSON",
+        "distributed": true,
+        "replication": "Multi-Master",
+        "sharding": "Spider Engine",
+        "license": "Open Source (GPL)",
+        "query_language": "SQL",
+        "performance_scale": 7,
+        "scalability": 7,
+        "operational_complexity": 6,
+        "community_support": 7,
+        "security_features": 7,
+        "backup_recovery": 7,
+        "integration_ecosystem": 8
+      },
+      "pros": ["MySQL compatible", "Enhanced features", "Open source", "Good performance"],
+      "cons": ["Less adoption than MySQL", "Some compatibility issues"],
+      "use_cases": ["MySQL replacement", "Web applications", "Analytics"]
+    },
+    {
+      "id": "sqlite",
+      "name": "SQLite",
+      "description": "Lightweight embedded SQL database",
+      "category": "Embedded",
+      "vendor": "SQLite Development Team",
+      "official_url": "https://www.sqlite.org/",
+      "github_url": "https://github.com/sqlite/sqlite",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Relational",
+        "distributed": false,
+        "replication": "None",
+        "sharding": "None",
+        "license": "Public Domain",
+        "query_language": "SQL",
+        "performance_scale": 6,
+        "scalability": 3,
+        "operational_complexity": 10,
+        "community_support": 8,
+        "security_features": 5,
+        "backup_recovery": 6,
+        "integration_ecosystem": 9
+      },
+      "pros": ["Zero configuration", "Embedded", "Very lightweight", "ACID compliant"],
+      "cons": ["Single writer", "No network access", "Limited scalability"],
+      "use_cases": ["Mobile apps", "Desktop applications", "Prototyping", "IoT devices"]
+    },
+    {
+      "id": "access",
+      "name": "Microsoft Access",
+      "description": "Desktop database application with GUI",
+      "category": "Desktop",
+      "vendor": "Microsoft",
+      "official_url": "https://www.microsoft.com/en-us/microsoft-365/access",
+      "github_url": "",
+      "criteria": {
+        "cap_theorem": "CA",
+        "consistency_model": "Strong",
+        "acid_support": "Limited ACID",
+        "data_model": "Relational",
+        "distributed": false,
+        "replication": "None",
+        "sharding": "None",
+        "license": "Commercial",
+        "query_language": "SQL + GUI",
+        "performance_scale": 4,
+        "scalability": 2,
+        "operational_complexity": 9,
+        "community_support": 6,
+        "security_features": 4,
+        "backup_recovery": 5,
+        "integration_ecosystem": 7
+      },
+      "pros": ["Easy to use", "GUI interface", "Office integration", "Rapid development"],
+      "cons": ["Very limited scalability", "Windows only", "Not suitable for web"],
+      "use_cases": ["Small business", "Departmental databases", "Rapid prototyping"]
+    },
+    {
+      "id": "orientdb",
+      "name": "OrientDB",
+      "description": "Multi-model database supporting graph, document, and object models",
+      "category": "Multi-Model",
+      "vendor": "OrientDB Ltd",
+      "official_url": "https://orientdb.org/",
+      "github_url": "https://github.com/orientechnologies/orientdb",
+      "criteria": {
+        "cap_theorem": "CP",
+        "consistency_model": "Strong",
+        "acid_support": "Full ACID",
+        "data_model": "Graph + Document + Object",
+        "distributed": true,
+        "replication": "Multi-Master",
+        "sharding": "Built-in",
+        "license": "Open Source (Apache 2.0) / Commercial",
+        "query_language": "SQL + Gremlin",
+        "performance_scale": 7,
+        "scalability": 7,
+        "operational_complexity": 5,
+        "community_support": 5,
+        "security_features": 7,
+        "backup_recovery": 7,
+        "integration_ecosystem": 6
+      },
+      "pros": ["Multi-model", "ACID compliant", "SQL support", "Graph capabilities"],
+      "cons": ["Smaller community", "Complex for simple use cases", "Performance overhead"],
+      "use_cases": ["Complex data relationships", "Multi-model requirements", "Graph analytics"]
+    },
+    {
+      "id": "druid",
+      "name": "Apache Druid",
+      "description": "Real-time analytics database for time-series and event data",
+      "category": "Analytics",
+      "vendor": "Apache Software Foundation",
+      "official_url": "https://druid.apache.org/",
+      "github_url": "https://github.com/apache/druid",
+      "criteria": {
+        "cap_theorem": "AP",
+        "consistency_model": "Eventual",
+        "acid_support": "No ACID",
+        "data_model": "Columnar Time-Series",
+        "distributed": true,
+        "replication": "Built-in",
+        "sharding": "Automatic",
+        "license": "Open Source (Apache 2.0)",
+        "query_language": "JSON + SQL",
+        "performance_scale": 9,
+        "scalability": 9,
+        "operational_complexity": 4,
+        "community_support": 6,
+        "security_features": 6,
+        "backup_recovery": 6,
+        "integration_ecosystem": 7
+      },
+      "pros": ["Sub-second queries", "Real-time ingestion", "Time-series optimized", "High scalability"],
+      "cons": ["Complex architecture", "Not for OLTP", "Steep learning curve"],
+      "use_cases": ["Real-time analytics", "Time-series data", "Event streaming", "Business intelligence"]
+    }
+  ],
+  "presets": [
+    {
+      "id": "ecommerce",
+      "name": "E-commerce Platform",
+      "description": "High-availability transactional system with analytics",
+      "weights": {
+        "acid_support": 10,
+        "consistency_model": 9,
+        "performance_scale": 8,
+        "security_features": 8,
+        "backup_recovery": 9,
+        "distributed": 6,
+        "license": 4
+      },
+      "recommended": ["postgresql", "mysql", "oracle"]
+    },
+    {
+      "id": "iot_telemetry",
+      "name": "IoT Telemetry",
+      "description": "High-volume time-series data ingestion",
+      "weights": {
+        "performance_scale": 10,
+        "scalability": 10,
+        "sharding": 9,
+        "distributed": 9,
+        "replication": 7,
+        "operational_complexity": 6,
+        "acid_support": 3
+      },
+      "recommended": ["cassandra", "druid", "mongodb"]
+    },
+    {
+      "id": "real_time_analytics",
+      "name": "Real-time Analytics",
+      "description": "Fast aggregations and complex queries",
+      "weights": {
+        "performance_scale": 10,
+        "query_language": 8,
+        "distributed": 8,
+        "data_model": 7,
+        "scalability": 9,
+        "integration_ecosystem": 7,
+        "consistency_model": 5
+      },
+      "recommended": ["elasticsearch", "druid", "mongodb"]
+    },
+    {
+      "id": "caching_layer",
+      "name": "Caching Layer",
+      "description": "Ultra-fast data access and session storage",
+      "weights": {
+        "performance_scale": 10,
+        "operational_complexity": 8,
+        "data_model": 6,
+        "distributed": 7,
+        "replication": 6,
+        "acid_support": 2
+      },
+      "recommended": ["redis"]
+    },
+    {
+      "id": "enterprise_oltp",
+      "name": "Enterprise OLTP",
+      "description": "Mission-critical transactional systems",
+      "weights": {
+        "acid_support": 10,
+        "security_features": 10,
+        "backup_recovery": 10,
+        "community_support": 9,
+        "consistency_model": 9,
+        "performance_scale": 8,
+        "integration_ecosystem": 8
+      },
+      "recommended": ["oracle", "mssql", "postgresql"]
+    },
+    {
+      "id": "startup_mvp",
+      "name": "Startup MVP",
+      "description": "Quick development with cost efficiency",
+      "weights": {
+        "license": 10,
+        "operational_complexity": 9,
+        "community_support": 8,
+        "integration_ecosystem": 8,
+        "query_language": 7,
+        "performance_scale": 6
+      },
+      "recommended": ["postgresql", "mysql", "sqlite", "mongodb"]
+    },
+    {
+      "id": "graph_analytics",
+      "name": "Graph Analytics",
+      "description": "Complex relationship analysis and traversal",
+      "weights": {
+        "data_model": 10,
+        "query_language": 9,
+        "performance_scale": 8,
+        "acid_support": 7,
+        "scalability": 7,
+        "integration_ecosystem": 6
+      },
+      "recommended": ["neo4j", "orientdb"]
+    },
+    {
+      "id": "embedded_application",
+      "name": "Embedded Application",
+      "description": "Mobile/desktop apps with local storage",
+      "weights": {
+        "operational_complexity": 10,
+        "license": 9,
+        "performance_scale": 7,
+        "acid_support": 8,
+        "integration_ecosystem": 7,
+        "scalability": 2
+      },
+      "recommended": ["sqlite", "access"]
+    }
+  ]
+}
