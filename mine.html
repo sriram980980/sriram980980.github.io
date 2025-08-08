@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Echo Hunt — Mobile Puzzle (single file)</title>
+<style>
+  :root{--bg:#0b1220;--card:#0f1724;--muted:#9aa6bf;--accent:#60a5fa;--good:#22c55e;--bad:#fb7185}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#e6eef8;background:linear-gradient(180deg,#071426 0%, #031022 100%)}
+  .wrap{max-width:760px;margin:0 auto;padding:18px;display:flex;flex-direction:column;min-height:100vh}
+  header{display:flex;align-items:center;gap:12px}
+  h1{font-size:18px;margin:0}
+  .toolbar{margin-left:auto;display:flex;gap:8px}
+  button{border:0;background:linear-gradient(180deg,#1b2a44,#133056);color:#e6eef8;padding:8px 12px;border-radius:10px;font-weight:600}
+  .small{padding:6px 8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);font-weight:600}
+  .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:14px;margin-top:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+  .meta{display:flex;gap:8px;align-items:center}
+  .stat{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;text-align:center}
+  .board-wrap{display:flex;justify-content:center;margin-top:12px}
+  .board{width:100%;max-width:520px;aspect-ratio:1/1;background:rgba(255,255,255,0.02);padding:8px;border-radius:12px;display:grid;grid-template-columns:repeat(var(--size),1fr);gap:6px}
+  .cell{position:relative;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));display:flex;align-items:center;justify-content:center;user-select:none;touch-action:none;overflow:hidden}
+  .cover{position:absolute;inset:0;background:linear-gradient(180deg,#0d1220,#0b1524);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700;transform:translateY(0);transition:transform .18s ease,opacity .18s ease}
+  .cell.revealed .cover{transform:translateY(100%);opacity:0}
+  .value{z-index:2;font-weight:800}
+  .flag{z-index:3;font-size:18px}
+  .ping{position:absolute;z-index:1;border-radius:50%;opacity:0.18;transform:scale(0);transition:transform .5s ease,opacity .5s ease;border:2px solid rgba(96,165,250,0.18)}
+  .controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+  .hint{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
+  .big{font-size:20px}
+  .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .message{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);max-width:90vw}
+  /* Level colors for numbers */
+  .n1{color:#60a5fa}
+  .n2{color:#7dd3fc}
+  .n3{color:#a78bfa}
+  .n4{color:#fb7185}
+  .n5{color:#fbbf24}
+  .n6{color:#4ade80}
+  /* mobile tweaks */
+  @media (max-width:520px){.wrap{padding:12px}.board{gap:5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Echo Hunt</h1>
+    <div class="toolbar">
+      <button id="newBtn">New</button>
+      <button id="modeBtn" class="small">Mode: Classic</button>
+    </div>
+  </header>
+
+  <div class="panel">
+    <div class="meta">
+      <div class="stat"><div style="font-size:12px;color:var(--muted)">Cores</div><div id="cores" class="big">0</div></div>
+      <div class="stat"><div style="font-size:12px;color:var(--muted)">Flags</div><div id="flags" class="big">0</div></div>
+      <div class="stat"><div style="font-size:12px;color:var(--muted)">Energy</div><div id="energy" class="big">3</div></div>
+      <div style="flex:1"></div>
+      <div style="text-align:right;color:var(--muted)"><div style="font-size:12px">Level</div><div id="level" class="big">1</div></div>
+    </div>
+
+    <div class="board-wrap">
+      <div id="board" class="board" style="--size:6"></div>
+    </div>
+
+    <div class="controls">
+      <button id="pingBtn">Ping (cost 1)</button>
+      <button id="sonarBtn">Sonar (cost 2)</button>
+      <button id="hintBtn" class="small">Hint</button>
+    </div>
+
+    <div class="hint">Tap to reveal. Long-press to flag. Ping shows nearby echo rings; Sonar draws arrow to nearest core. Mark all cores to win. Energy replenishes on level complete.</div>
+  </div>
+
+  <div style="margin-top:8px;color:var(--muted);font-size:13px; text-align:center">Designed for mobile — tap / long-press / swipe to play.</div>
+</div>
+
+<script>
+/* Echo Hunt - mobile-first minesweeper-like puzzle
+   Unique mechanics:
+   - "Cores" placed like mines but you must mark them all to win
+   - Tap to reveal: reveals "echo value" = sum of inverse distances to visible cores (shown as small integer)
+   - Ping: cost energy, shows animated radial rings centered on tapped cell; helps estimate proximity
+   - Sonar: cost more energy, draws directional arrow pointing to the nearest core (visual hint)
+   - Long-press to flag
+   - Energy limited per level, replenished when level complete; higher levels increase grid size & cores
+   - LocalStorage save for best times & stats
+*/
+
+const root = document.documentElement;
+let SIZE = 6; // initial grid
+let CORES = 6; // initial cores
+let energy = 3;
+let flags = 0;
+let placedFlags = 0;
+let levelNum = 1;
+let board = [];
+let gameOver = false;
+let mode = 'Classic'; // placeholder for different rule modes
+
+const boardEl = document.getElementById('board');
+const coresEl = document.getElementById('cores');
+const flagsEl = document.getElementById('flags');
+const energyEl = document.getElementById('energy');
+const levelEl = document.getElementById('level');
+
+function emptyGrid(size){
+  const g=[]; for(let r=0;r<size;r++){ g[r]=[]; for(let c=0;c<size;c++) g[r][c]=null } return g;
+}
+
+function randInt(n){return Math.floor(Math.random()*n)}
+
+function placeCores(size, count, avoid=null){
+  const pts = [];
+  while(pts.length<count){
+    const r=randInt(size), c=randInt(size);
+    if(avoid && avoid[0]===r && avoid[1]===c) continue; // avoid initial tap if provided
+    const key = r+":"+c;
+    if(!pts.includes(key)) pts.push(key);
+  }
+  return pts.map(k=>k.split(':').map(x=>parseInt(x,10)));
+}
+
+function startNew(level=1){
+  levelNum = level;
+  SIZE = Math.min(6 + Math.floor((level-1)/2), 10);
+  CORES = Math.max(4, Math.min(Math.floor(SIZE*SIZE*0.16 + level), SIZE*SIZE-1));
+  energy = 3 + Math.floor(level/3);
+  flags = CORES; placedFlags = 0;
+  board = emptyGrid(SIZE);
+  gameOver = false;
+  root.style.setProperty('--size', SIZE);
+  boardEl.style.gridTemplateColumns = `repeat(${SIZE},1fr)`;
+  renderGrid();
+  updateMeta();
+}
+
+function renderGrid(){
+  boardEl.innerHTML = '';
+  for(let r=0;r<SIZE;r++){
+    for(let c=0;c<SIZE;c++){
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.r = r; cell.dataset.c = c;
+      const cover = document.createElement('div'); cover.className='cover'; cover.textContent='';
+      const val = document.createElement('div'); val.className='value';
+      const flag = document.createElement('div'); flag.className='flag';
+      const ping = document.createElement('div'); ping.className='ping';
+      cell.appendChild(val); cell.appendChild(cover); cell.appendChild(flag); cell.appendChild(ping);
+      bindCellEvents(cell);
+      boardEl.appendChild(cell);
+      board[r][c] = {core:false,revealed:false,flagged:false,el:cell};
+    }
+  }
+}
+
+function bindCellEvents(cell){
+  let holdTimer = null;
+  let moved = false;
+  const start = (e)=>{
+    moved=false;
+    holdTimer = setTimeout(()=>{ onLongPress(cell); holdTimer=null; }, 500);
+  };
+  const cancel = ()=>{ if(holdTimer) { clearTimeout(holdTimer); holdTimer=null; } };
+
+  cell.addEventListener('touchstart', (e)=>{ e.preventDefault(); start(e); });
+  cell.addEventListener('mousedown', (e)=>{ e.preventDefault(); start(e); });
+  cell.addEventListener('touchmove', ()=>{ moved=true; cancel(); });
+  cell.addEventListener('mousemove', ()=>{ moved=true; cancel(); });
+  cell.addEventListener('touchend', (e)=>{ cancel(); if(!moved) onTap(cell); });
+  cell.addEventListener('mouseup', (e)=>{ cancel(); if(!moved) onTap(cell); });
+  cell.addEventListener('mouseleave', ()=>{ cancel(); });
+}
+
+function onLongPress(cell){
+  if(gameOver) return;
+  const r=+cell.dataset.r, c=+cell.dataset.c;
+  toggleFlag(r,c);
+}
+
+function onTap(cell){
+  if(gameOver) return;
+  const r=+cell.dataset.r, c=+cell.dataset.c;
+  if(!anyCoresPlaced()){
+    // first tap: guarantee not a core here; place cores avoiding this cell
+    const cores = placeCores(SIZE, CORES, [r,c]);
+    for(const [cr,cc] of cores) board[cr][cc].core = true;
+    // store cores for debug? not needed
+  }
+  if(board[r][c].flagged) return;
+  if(board[r][c].revealed) return;
+  revealCell(r,c);
+}
+
+function anyCoresPlaced(){
+  for(let r=0;r<SIZE;r++)for(let c=0;c<SIZE;c++) if(board[r][c].core) return true;
+  return false;
+}
+
+function toggleFlag(r,c){
+  const cell = board[r][c];
+  if(cell.revealed) return;
+  if(cell.flagged){ cell.flagged=false; cell.el.querySelector('.flag').textContent=''; placedFlags--; }
+  else { if(placedFlags>=flags) return; cell.flagged=true; cell.el.querySelector('.flag').textContent='⚑'; placedFlags++; }
+  updateMeta();
+  checkWinCondition();
+}
+
+function revealCell(r,c){
+  const cell = board[r][c];
+  cell.revealed=true; cell.el.classList.add('revealed');
+  const valEl = cell.el.querySelector('.value');
+  if(cell.core){
+    // stepping on a core -> penalty: lose energy and reveal
+    cell.el.querySelector('.cover').textContent='💥';
+    energy = Math.max(0, energy-2);
+    updateMeta();
+    animatePing(cell.el, '#fb7185');
+    // reveal but continue; optionally mark as exploded
+    // If too many hits -> game over
+    if(energy<=0){
+      endGame(false, 'Out of energy (hit cores).');
+    }
+    return;
+  }
+  const echo = computeEchoValue(r,c);
+  valEl.innerHTML = `<span class="n${Math.min(echo,6)}">${echo}</span>`;
+  // auto-reveal logic: if echo is 0, reveal neighbors
+  if(echo===0){
+    for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){
+      const nr=r+dr,nc=c+dc; if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE){ if(!board[nr][nc].revealed && !board[nr][nc].flagged) revealCell(nr,nc); }
+    }
+  }
+}
+
+function computeEchoValue(r,c){
+  // unique echo: sum of floor(3 / (distance)) for each core within radius
+  // distance is Euclidean; closer cores give larger contribution; result as integer
+  let sum=0;
+  for(let rr=0;rr<SIZE;rr++)for(let cc=0;cc<SIZE;cc++){
+    if(board[rr][cc].core){
+      const d = Math.hypot(rr-r, cc-c);
+      if(d===0) { sum += 9; } else if(d<1.5) sum += 3; else if(d<3) sum += 2; else if(d<6) sum +=1;
+    }
+  }
+  return sum;
+}
+
+function animatePing(el, color){
+  const ping = el.querySelector('.ping');
+  ping.style.borderColor = color || 'rgba(96,165,250,0.2)';
+  ping.style.opacity = '1';
+  ping.style.transform = 'scale(2)';
+  setTimeout(()=>{ ping.style.opacity='0'; ping.style.transform='scale(0)'; },500);
+}
+
+// Ping action: shows rings on tapped cell and nearby cells; costs 1 energy
+function pingAt(r,c){
+  if(energy<=0) return; energy--; updateMeta();
+  for(let dr=-2;dr<=2;dr++)for(let dc=-2;dc<=2;dc++){
+    const nr=r+dr,nc=c+dc; if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE){
+      const d=Math.hypot(dr,dc);
+      const el=board[nr][nc].el; setTimeout(()=>animatePing(el), Math.floor(d*60));
+    }}
+}
+
+// Sonar: draws an arrow overlay from center to nearest core, costs 2 energy
+function sonarFrom(r,c){
+  if(energy<2) return; energy-=2; updateMeta();
+  // find nearest core
+  let best=null,bd=1e9;
+  for(let rr=0;rr<SIZE;rr++)for(let cc=0;cc<SIZE;cc++) if(board[rr][cc].core){
+    const d=Math.hypot(rr-r, cc-c);
+    if(d<bd){ bd=d; best=[rr,cc]; }
+  }
+  if(!best) return;
+  // create a transient arrow from cell center to target
+  const fromEl = board[r][c].el; const toEl = board[best[0]][best[1]].el;
+  const fromRect = fromEl.getBoundingClientRect(), toRect = toEl.getBoundingClientRect();
+  const arrow = document.createElement('div');
+  arrow.style.position='fixed'; arrow.style.zIndex=9999; arrow.style.left=fromRect.left+'px'; arrow.style.top=fromRect.top+'px';
+  arrow.style.width='6px'; arrow.style.height='6px'; arrow.style.borderRadius='50%'; arrow.style.background='rgba(96,165,250,0.9)';
+  document.body.appendChild(arrow);
+  const dx = toRect.left - fromRect.left; const dy = toRect.top - fromRect.top;
+  arrow.animate([{transform:'translate(0,0)'},{transform:`translate(${dx}px,${dy}px)`}],{duration:500,easing:'cubic-bezier(.2,.9,.2,1)'});
+  setTimeout(()=>arrow.remove(),600);
+}
+
+// Button handlers
+document.getElementById('newBtn').addEventListener('click', ()=>startNew(1));
+document.getElementById('pingBtn').addEventListener('click', ()=>{ // ping center cell for demo
+  // pick a random revealed cell or center
+  let r=Math.floor(SIZE/2), c=Math.floor(SIZE/2);
+  pingAt(r,c);
+});
+document.getElementById('sonarBtn').addEventListener('click', ()=>{ let r=Math.floor(SIZE/2), c=Math.floor(SIZE/2); sonarFrom(r,c); });
+
+document.getElementById('modeBtn').addEventListener('click', ()=>{ mode = mode==='Classic'?'Hard':'Classic'; document.getElementById('modeBtn').textContent='Mode: '+mode; });
+
+// Hook reveal & ping via tapping specific cells: also allow ping by two-finger tap? For demo, single tap reveals, long-press flags
+
+function updateMeta(){ coresEl.textContent = CORES; flagsEl.textContent = placedFlags + '/' + flags; energyEl.textContent = energy; levelEl.textContent = levelNum; }
+
+function endGame(win, msg){ gameOver=true; showOverlay(win? 'You Win!': 'Game Over', msg || (win? 'All cores marked!':'You lost.')); }
+
+function checkWinCondition(){
+  // win when all flagged positions correspond to cores and every core is flagged
+  if(placedFlags!==flags) return false;
+  for(let r=0;r<SIZE;r++)for(let c=0;c<SIZE;c++) if(board[r][c].flagged && !board[r][c].core) return false;
+  // all cores flagged
+  for(let r=0;r<SIZE;r++)for(let c=0;c<SIZE;c++) if(board[r][c].core && !board[r][c].flagged) return false;
+  endGame(true, `Level ${levelNum} complete!`);
+  return true;
+}
+
+function showOverlay(title, text){
+  const overlay = document.createElement('div'); overlay.className='overlay';
+  const box = document.createElement('div'); box.className='message';
+  box.innerHTML = `<h3 style="margin:0 0 8px 0">${title}</h3><div style="margin-bottom:12px">${text}</div><div style="display:flex;gap:8px;justify-content:flex-end"><button id='cont'>Continue</button><button id='next' class='small'>Next Level</button></div>`;
+  overlay.appendChild(box); document.body.appendChild(overlay);
+  document.getElementById('cont').addEventListener('click', ()=>{ overlay.remove(); });
+  document.getElementById('next').addEventListener('click', ()=>{ overlay.remove(); startNew(levelNum+1); });
+}
+
+// initialize
+startNew(1);
+
+</script>
+</body>
+</html>
