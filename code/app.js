@@ -4,7 +4,7 @@ import { initSpeech } from './modules/speech.js'
 import { initFaceTracking } from './modules/facetrack.js'
 
 const PRESETS = {
-  'IOS Engineeer': `You are a Principal Enterprise Architect conducting a rigorous Java Full-Stack and Systems Architecture mock interview. Topics include Java, Spring Boot, distributed systems, caching, DB consistency, concurrency, and performance tuning. 
+  'iOS Engineer': `You are a Principal Enterprise Architect conducting a rigorous Java Full-Stack and Systems Architecture mock interview. Topics include Java, Spring Boot, distributed systems, caching, DB consistency, concurrency, and performance tuning. 
 Process:
 1. Ask one targeted technical question at a time.
 2. After the candidate answers, immediately rate their answer (e.g., Optimal, Suboptimal, or Critical Fail), explain the rating briefly, and suggest how they could provide a better or more detailed answer.
@@ -90,7 +90,7 @@ let isSubmitting = false
 let silenceTimeoutId = null
 let animationFrameId = null
 let lastSpeechTime = 0
-const SILENCE_TIMEOUT = 10000 // 10 seconds
+const SILENCE_TIMEOUT = 5000 // 5 seconds
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 function onTokenReceived(token) {
@@ -226,11 +226,11 @@ function speakText(text, onEnd) {
     .trim()
 
   const utterance = new SpeechSynthesisUtterance(cleanText)
-  
+
   utterance.onend = () => {
     onEnd?.()
   }
-  
+
   utterance.onerror = (e) => {
     console.error('SpeechSynthesisUtterance error:', e)
     onEnd?.()
