@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Ecosystem Mind Map</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Trading Ecosystem Interactive Platform</h1>
+            <nav class="main-nav">
+                <button id="nav-tree" class="nav-item active" data-view="tree">
+                    <span class="nav-icon">🌳</span>
+                    <span class="nav-text">Ecosystem Tree</span>
+                </button>
+                <button id="nav-flows" class="nav-item" data-view="flows">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-text">Transaction Flows</span>
+                </button>
+            </nav>
+            <div class="controls">
+                <button id="reset-view" class="btn-secondary">Reset View</button>
+                <button id="export-data" class="btn-secondary">Export</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Tree View Section -->
+            <div class="view-section tree-view active" id="tree-view">
+                <div class="tree-container">
+                    <!-- Search Bar -->
+                    <div class="search-bar">
+                        <input type="text" id="tree-search" placeholder="Search ecosystem components..." />
+                        <button id="search-btn">🔍</button>
+                        <button id="expand-all">📂</button>
+                        <button id="collapse-all">📁</button>
+                    </div>
+                    
+                    <!-- Tree Navigation (80%) -->
+                    <div class="tree-navigation">
+                        <div class="tree-content" id="tree-content">
+                            <!-- Tree will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Details Panel (20%) -->
+                <div class="details-panel">
+                    <div class="panel-header">
+                        <h3>Component Details</h3>
+                        <button class="panel-close" id="close-details">×</button>
+                    </div>
+                    <div class="panel-content" id="details-content">
+                        <div class="welcome-message">
+                            <div class="welcome-icon">🏛️</div>
+                            <h4>Trading Ecosystem Explorer</h4>
+                            <p>Select any component from the tree to view detailed information including attributes, data sources, and lifecycle stages.</p>
+                            <div class="quick-tips">
+                                <h5>Quick Tips:</h5>
+                                <ul>
+                                    <li>Click <strong>+</strong> or <strong>-</strong> to expand/collapse categories</li>
+                                    <li>Use the search bar to find specific components</li>
+                                    <li>Hover over items for quick preview</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flows View Section -->
+            <div class="view-section flows-view" id="flows-view">
+                <div class="flows-container">
+                    <div class="flows-header">
+                        <h2>Transaction Flow Scenarios</h2>
+                        <p>Explore how different transactions flow through the trading ecosystem</p>
+                    </div>
+                    
+                    <div class="flow-scenarios">
+                        <div class="scenario-card" data-scenario="company-listing">
+                            <div class="scenario-icon">🏢</div>
+                            <h3>Company Gets Listed</h3>
+                            <p>From private company to public trading</p>
+                            <div class="scenario-steps">IPO Registration → Exchange Listing → Market Making → Public Trading</div>
+                        </div>
+                        
+                        <div class="scenario-card" data-scenario="equity-purchase">
+                            <div class="scenario-icon">👤</div>
+                            <h3>Individual Buys Equity</h3>
+                            <p>Direct stock purchase by retail investor</p>
+                            <div class="scenario-steps">Order Placement → Broker → Exchange → Settlement → Custody</div>
+                        </div>
+                        
+                        <div class="scenario-card" data-scenario="fund-launch">
+                            <div class="scenario-icon">🏦</div>
+                            <h3>Fund House Launches Fund</h3>
+                            <p>Creating and registering investment fund</p>
+                            <div class="scenario-steps">Fund Registration → Prospectus → Regulator Approval → Launch → Marketing</div>
+                        </div>
+                        
+                        <div class="scenario-card" data-scenario="fund-investment">
+                            <div class="scenario-icon">💰</div>
+                            <h3>Individual Invests in Fund</h3>
+                            <p>Purchasing fund units/shares</p>
+                            <div class="scenario-steps">Application → KYC → NAV Calculation → Unit Allocation → Confirmation</div>
+                        </div>
+                        
+                        <div class="scenario-card" data-scenario="fund-equity-purchase">
+                            <div class="scenario-icon">🔄</div>
+                            <h3>Fund Purchases Equity</h3>
+                            <p>Fund's investment in underlying securities</p>
+                            <div class="scenario-steps">Investment Decision → Portfolio Management → Trade Execution → Settlement</div>
+                        </div>
+                        
+                        <div class="scenario-card" data-scenario="impact-analysis">
+                            <div class="scenario-icon">📊</div>
+                            <h3>Impact on Individual</h3>
+                            <p>How transactions affect end investors</p>
+                            <div class="scenario-steps">Performance Impact → Fee Impact → Tax Impact → Portfolio Value</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Flow Visualization Area -->
+                    <div class="flow-visualization" id="flow-visualization">
+                        <div class="flow-canvas" id="flow-canvas">
+                            <!-- Flow diagrams will be rendered here -->
+                        </div>
+                        <div class="flow-controls">
+                            <button id="play-flow" class="btn-primary">Play Flow</button>
+                            <button id="step-flow" class="btn-secondary">Step by Step</button>
+                            <button id="reset-flow" class="btn-secondary">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Loading Trading Ecosystem...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data-model.js"></script>
+    <script src="js/tree-view.js"></script>
+    <script src="js/flows-view.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/main-app.js"></script>
+</body>
+</html>

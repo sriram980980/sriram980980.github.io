@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Ecosystem Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .demo-header {
+            margin-bottom: 40px;
+        }
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .demo-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .demo-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .feature-description {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        .demo-actions {
+            margin: 50px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background: rgba(52, 152, 219, 0.8);
+            border-color: #3498db;
+        }
+        .btn-primary:hover {
+            background: rgba(52, 152, 219, 1);
+        }
+        .demo-tech {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .tech-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>Trading Ecosystem Mind Map</h1>
+            <p>An interactive visualization of the complete trading ecosystem from instrument inception to fund management, investor flows, settlement, and performance measurement.</p>
+        </div>
+
+        <div class="demo-features">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <div class="feature-title">Interactive Mind Map</div>
+                <div class="feature-description">Explore the trading ecosystem with expandable nodes, rich tooltips, and detailed component information.</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <div class="feature-title">Guided Tour</div>
+                <div class="feature-description">11-slide storytelling mode with progressive disclosure and animated flows between components.</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Advanced Search</div>
+                <div class="feature-description">Find specific components quickly with intelligent search across names and descriptions.</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <div class="feature-title">Responsive Design</div>
+                <div class="feature-description">Works seamlessly across desktop, tablet, and mobile devices with touch-friendly interactions.</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">♿</div>
+                <div class="feature-title">Accessibility</div>
+                <div class="feature-description">Full keyboard navigation, ARIA labels, and screen reader compatibility.</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">High Performance</div>
+                <div class="feature-description">Built with D3.js for smooth animations and efficient rendering of complex data structures.</div>
+            </div>
+        </div>
+
+        <div class="demo-actions">
+            <a href="index.html" class="btn btn-primary">Launch Application</a>
+            <a href="README.md" class="btn">View Documentation</a>
+        </div>
+
+        <div class="demo-tech">
+            <h3>Built With</h3>
+            <div class="tech-stack">
+                <div class="tech-item">D3.js v7</div>
+                <div class="tech-item">Modern JavaScript (ES6+)</div>
+                <div class="tech-item">CSS3 Animations</div>
+                <div class="tech-item">SVG Graphics</div>
+                <div class="tech-item">Responsive Design</div>
+                <div class="tech-item">Accessibility Standards</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive elements
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.15)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Add click tracking
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                console.log('Button clicked:', e.target.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
