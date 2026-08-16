@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,14 @@
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div id="setup-modal" class="modal-overlay hidden">
         <div class="modal">
             <h2>Mock Interview</h2>
             <p>Sign in with your Google account to start your AI-powered mock interview.</p>
-            <button id="gsi-signin-btn" class="btn btn-primary" style="width:100%;padding:12px;font-size:15px">Sign in with Google</button>
+            <button id="gsi-signin-btn" class="btn btn-primary" style="width:100%;padding:12px;font-size:15px">Sign in
+                with Google</button>
             <p id="modal-error" style="color:#f85149;font-size:13px;display:none"></p>
         </div>
     </div>
@@ -77,7 +80,9 @@
             <div id="transcript-section">
                 <div id="transcript-label" style="display: flex; justify-content: space-between; align-items: center;">
                     <span>Your Answer (live transcript)</span>
-                    <span id="submitting-status" style="color: #58a6ff; font-weight: 600; font-size: 11px; visibility: hidden; text-transform: none; letter-spacing: 0;">⏳ Submitting in 10.0s...</span>
+                    <span id="submitting-status"
+                        style="color: #58a6ff; font-weight: 600; font-size: 11px; visibility: hidden; text-transform: none; letter-spacing: 0;">⏳
+                        Submitting in 10.0s...</span>
                 </div>
                 <div id="transcript-box" class="transcript-placeholder">Click Record to speak...</div>
                 <div class="progress-bar-container">
@@ -91,6 +96,7 @@
         </section>
     </main>
 
-    <script type="module" src="app.js"></script>
+    <script data-cfasync="false" type="module" crossorigin src="app.js"></script>
 </body>
+
 </html>

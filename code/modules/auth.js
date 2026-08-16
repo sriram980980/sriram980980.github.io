@@ -8,6 +8,12 @@ let _tokenExpiry = 0
 let _tokenClient = null
 
 export function initAuth(onToken, onError) {
+  const google = window.google
+  if (!google || !google.accounts || !google.accounts.oauth2) {
+    onError?.('Google Identity Services SDK is not loaded. Please verify your internet connection and refresh the page.')
+    return
+  }
+
   _tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: SCOPE,

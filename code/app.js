@@ -512,9 +512,25 @@ async function boot() {
   // GIS may not be loaded yet (async script); wait for it
   await new Promise((resolve) => {
     if (window.google?.accounts?.oauth2) return resolve()
+
+    let checks = 0
+    const interval = setInterval(() => {
+      if (window.google?.accounts?.oauth2) {
+        clearInterval(interval)
+        resolve()
+      } else if (checks++ >= 50) { // 5 seconds max
+        clearInterval(interval)
+        resolve()
+      }
+    }, 100)
+
     const script = document.querySelector('script[src*="gsi/client"]')
-    script?.addEventListener('load', resolve)
-    setTimeout(resolve, 3000) // fallback
+    script?.addEventListener('load', () => {
+      if (window.google?.accounts?.oauth2) {
+        clearInterval(interval)
+        resolve()
+      }
+    })
   })
 
   initAuth(onTokenReceived, onAuthError)
