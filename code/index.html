@@ -1,216 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Ram's Tools - 20+ Free Online Utilities & Developer Tools</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Professional collection of 20+ free online tools: BMI calculator, JSON formatter, Base64 encoder, timezone converter, blood pressure tracker, WHO growth charts, EMI calculator, text diff tool, JSON path extractor, and more utilities for developers and everyday use.">
-  <meta name="keywords" content="online tools, free calculator, BMI calculator, JSON formatter, Base64 encoder, timezone converter, timestamp converter, blood pressure tracker, WHO growth charts, EMI calculator, rent receipt generator, property tax calculator, ovulation tracker, date calculator, text diff tool, JSON path extractor, text utils, color utils, digital signature, developer tools, health tools, productivity tools">
-  <meta name="author" content="Ram">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#2563eb">
-  
-  <!-- Enhanced SEO -->
-  <meta name="classification" content="Tools, Utilities, Calculators">
-  <meta name="category" content="Web Applications">
-  <meta name="coverage" content="Worldwide">
-  <meta name="distribution" content="Global">
-  <meta name="rating" content="General">
-  <meta name="revisit-after" content="7 days">
-  <meta name="language" content="English">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.ramireddy.in/">
-  <meta property="og:title" content="Ram's Tools - 20+ Free Online Utilities &amp; Developer Tools">
-  <meta property="og:description" content="Professional collection of free online tools including BMI calculator, JSON formatter, Base64 encoder, timezone converter, blood pressure tracker, WHO growth charts, and many more utilities.">
-  <meta property="og:site_name" content="Ram's Tools">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:image" content="https://www.ramireddy.in/assets/images/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Ram's Tools - Free Online Utilities">
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://www.ramireddy.in/">
-  <meta property="twitter:title" content="Ram's Tools - 20+ Free Online Utilities &amp; Developer Tools">
-  <meta property="twitter:description" content="Professional collection of free online tools including BMI calculator, JSON formatter, Base64 encoder, timezone converter, blood pressure tracker, WHO growth charts, and many more utilities.">
-  <meta property="twitter:image" content="https://www.ramireddy.in/assets/images/twitter-image.png">
-  <meta property="twitter:image:alt" content="Ram's Tools - Free Online Utilities">
-  <meta property="twitter:creator" content="@ramireddy">
-  <meta property="twitter:site" content="@ramireddy">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://www.ramireddy.in/">
-  
-  <!-- Alternative URLs -->
-  <link rel="alternate" href="https://www.ramireddy.in/" hreflang="en">
-  <link rel="alternate" href="https://www.ramireddy.in/" hreflang="x-default">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Custom Styles -->
-  <style>
-    :root {
-      --primary-color: #2563eb;
-      --secondary-color: #64748b;
-      --accent-color: #06b6d4;
-      --success-color: #10b981;
-      --warning-color: #f59e0b;
-      --danger-color: #ef4444;
-      --light-bg: #f8fafc;
-      --dark-text: #1e293b;
-    }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--light-bg);
-      color: var(--dark-text);
-      line-height: 1.6;
-    }
-    
-    .gradient-bg {
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    }
-    
-    .tool-card {
-      transition: all 0.3s ease;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-    
-    .tool-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .btn-custom {
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-custom:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .health-disclaimer {
-      background-color: #fef3c7;
-      border: 1px solid #fcd34d;
-      border-radius: 8px;
-      padding: 1rem;
-      margin: 1rem 0;
-    }
-    
-    .health-disclaimer .disclaimer-icon {
-      color: #f59e0b;
-    }
-    
-    .result-card {
-      border-radius: 12px;
-      border: none;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-    
-    .category-normal { background-color: #10b981; }
-    .category-underweight { background-color: #06b6d4; }
-    .category-overweight { background-color: #f59e0b; }
-    .category-obese { background-color: #ef4444; }
-    
-    .footer {
-      background-color: #1e293b;
-      color: #f8fafc;
-      padding: 2rem 0;
-      margin-top: 4rem;
-    }
-    
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.5rem;
-    }
-    
-    .dropdown-menu {
-      border-radius: 8px;
-      border: none;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .tool-header-icon {
-      font-size: 2.5rem;
-      color: var(--primary-color);
-    }
-    
-    .tool-container {
-      background: white;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
-    }
-    
-    .calculator-section {
-      background-color: #f8fafc;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .reference-section {
-      background-color: #eff6ff;
-      border-left: 4px solid var(--primary-color);
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 0 8px 8px 0;
-    }
-    
-    .chart-container {
-      background: white;
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin: 1rem 0;
-    }
-    
-    .bmi-range {
-      padding: 0.5rem;
-      border-radius: 6px;
-      margin: 0.25rem 0;
-      font-weight: 500;
-    }
-    
-    .search-container {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
-    }
-    
-    @media (max-width: 768px) {
-      .tool-container {
-        padding: 1rem;
-      }
-      
-      .calculator-section {
-        padding: 1rem;
-      }
-    }
-  </style>
-<link rel="stylesheet" href="styles.99da0e03a3608259.css"></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Interview</title>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-  <app-root></app-root>
-  
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="runtime.da8481cadc711397.js" type="module"></script><script src="polyfills.84280e0f68af4979.js" type="module"></script><script src="main.607683276886c2db.js" type="module"></script></body>
+    <div id="setup-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <h2>Mock Interview</h2>
+            <p>Sign in with your Google account to start your AI-powered mock interview.</p>
+            <button id="gsi-signin-btn" class="btn btn-primary" style="width:100%;padding:12px;font-size:15px">Sign in with Google</button>
+            <p id="modal-error" style="color:#f85149;font-size:13px;display:none"></p>
+        </div>
+    </div>
+
+    <header id="app-header">
+        <div class="header-brand">
+            <span class="brand-icon">🎙</span>
+            <span class="brand-name">Mock Interview</span>
+        </div>
+        <div class="header-controls">
+            <div id="auth-status" class="auth-chip">Not signed in</div>
+            <button id="sign-in-btn" class="btn btn-ghost">Sign Out</button>
+            <button id="reset-btn" class="btn btn-ghost">Reset</button>
+        </div>
+    </header>
+
+    <main id="app-main">
+        <!-- LEFT PANEL -->
+        <section id="left-panel">
+            <div id="video-container">
+                <video id="webcam-video" autoplay muted playsinline></video>
+                <canvas id="face-canvas"></canvas>
+            </div>
+            <div id="face-status">
+                <div class="status-row">
+                    <span class="status-dot" id="face-dot"></span>
+                    <span id="face-label">Face: Waiting...</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-dot" id="eye-dot"></span>
+                    <span id="eye-label">Eye Contact: Waiting...</span>
+                </div>
+            </div>
+            <div id="preset-section">
+                <label for="preset-select">Role Preset</label>
+                <select id="preset-select">
+                    <option value="Frontend Engineer">Frontend Engineer</option>
+                    <option value="Backend Engineer">Backend Engineer</option>
+                    <option value="Product Manager">Product Manager</option>
+                    <option value="Data Scientist">Data Scientist</option>
+                    <option value="Behavioral (STAR)">Behavioral (STAR)</option>
+                </select>
+            </div>
+            <div class="control-row">
+                <span class="control-row-label">Read Aloud (TTS)</span>
+                <label class="switch">
+                    <input type="checkbox" id="tts-toggle" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <button id="start-btn" class="btn btn-success" disabled>Start Interview</button>
+        </section>
+
+        <!-- RIGHT PANEL -->
+        <section id="right-panel">
+            <div id="chat-container">
+                <div id="chat-history">
+                    <div class="chat-empty-state">Sign in and click "Start Interview" to begin.</div>
+                </div>
+            </div>
+            <div id="transcript-section">
+                <div id="transcript-label" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Your Answer (live transcript)</span>
+                    <span id="submitting-status" style="color: #58a6ff; font-weight: 600; font-size: 11px; visibility: hidden; text-transform: none; letter-spacing: 0;">⏳ Submitting in 10.0s...</span>
+                </div>
+                <div id="transcript-box" class="transcript-placeholder">Click Record to speak...</div>
+                <div class="progress-bar-container">
+                    <div id="submitting-bar" class="submitting-bar"></div>
+                </div>
+            </div>
+            <div id="voice-controls">
+                <button id="record-btn" class="btn btn-record" disabled>🎤 Record</button>
+                <button id="submit-btn" class="btn btn-primary" disabled>Submit</button>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
 </html>
